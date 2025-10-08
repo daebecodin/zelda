@@ -1,0 +1,192 @@
+body {
+    font-family: 'Courier New', monospace;
+    background: #1a1a2e;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.ui {
+    display: flex;
+    justify-content: space-between;
+    width: 480px;
+}
+
+#grid {
+    height: 432px;
+    width: 480px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5) inset, 0 1px 0 #fff;
+    display: flex;
+    flex-wrap: wrap;
+    background: url('images/u4DVsx6.png');
+    background-size: cover;
+    position: relative;
+    padding: 0;
+}
+
+#grid div {
+    height: 48px;
+    width: 48px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.link-going-left, .link-going-right, .link-going-down, .link-going-up {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    z-index: 10;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.link-going-left {
+    background-image: url('images/1Xq9biB.png')
+}
+
+.link-going-right {
+    background-image: url('images/yZIb8O2.png')
+}
+
+.link-going-down {
+    background-image: url('images/tVtlP6y.png')
+}
+
+.link-going-up {
+    background-image: url('images/UkV0we0.png')
+}
+
+.left-wall {
+    background-image: url('images/rfDoaa1.png')
+}
+
+.top-wall {
+    background-image: url('images/QA257Bj.png')
+}
+
+.bottom-wall {
+    background-image: url('images/vWJWmvb.png')
+}
+
+.right-wall {
+    background-image: url('images/SmHhgUn.png')
+}
+
+.bottom-left-wall {
+    background-image: url('images/awnTfNC.png')
+}
+
+.bottom-right-wall {
+    background-image: url('images/84oyTFy.png')
+}
+
+.top-left-wall {
+    background-image: url('images/xlpUxIm.png')
+}
+
+.top-right-wall {
+    background-image: url('images/z0OmBd1.jpg')
+}
+
+.top-door {
+    background-image: url('images/U9nre4n.png')
+}
+
+.left-door {
+    background-image: url('images/okdJNls.png')
+}
+
+.stairs {
+    background-image: url('images/VghkL08.png')
+}
+
+.fire-pot {
+    background-image: url('images/I7xSp7w.png')
+}
+
+.lanterns {
+    background-image: url('images/wiSiY09.png')
+}
+
+.slicer, .skeletor {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    z-index: 5;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.slicer  {
+    background-image: url('images/c6JFi5Z.png')
+}
+
+.skeletor {
+    background-image: url('images/Ei1VnX8.png')
+}
+
+.kaboom {
+    background-image: url('images/o9WizfI.png');
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    z-index: 15;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+
+
+#temp-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 180px;
+    transform: translate(-50%, -50%);
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    z-index: 20;
+    pointer-events: none;
+    background: rgba(0,0,0,0.8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
