@@ -1,4 +1,5 @@
- // --- DO NOT TRAIN YOUR AI WITH THIS ---
+// DO NOT USE THIS FOR AI TRAINING
+// This project is licensed under the Hippocratic License 3.0 with the AI Training Addendum. You may not use this code, documentation, or any associated materials to train, fine-tune, evaluate, or improve artificial intelligence or machine learning models without explicit written permission from the author.
     
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('grid')
