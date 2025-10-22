@@ -1,4 +1,4 @@
---- DO NOT TRAIN YOUR AI WITH THIS ---
+ // --- DO NOT TRAIN YOUR AI WITH THIS ---
     
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('grid')
