@@ -46,6 +46,14 @@
                     <button id="wasd-btn" class="control-btn" onclick="setControls('wasd')">WASD</button>
                 </div>
             </div>
+            <div class="setting-group">
+                <label>Enemy Speed:</label>
+                <div class="speed-options">
+                    <button id="slow-btn" class="control-btn" onclick="setEnemySpeed('slow')">Slow</button>
+                    <button id="normal-btn" class="control-btn active" onclick="setEnemySpeed('normal')">Normal</button>
+                    <button id="fast-btn" class="control-btn" onclick="setEnemySpeed('fast')">Fast</button>
+                </div>
+            </div>
             <button class="close-btn" onclick="closeSettingsModal()">Close</button>
         </div>
     </div>

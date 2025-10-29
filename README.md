@@ -1,9 +1,8 @@
 # 🗡️ Zelda JS
 A Legend of Zelda-inspired dungeon crawler game built with vanilla JavaScript, HTML, and CSS.
 
-Click here to deploy your project for free: [DEPLOY!](https://bit.ly/sevalla-deploy)
+Live Game: [HERE!!!](https://bit.ly/sevalla-deploy)
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## 🎮 About
 
@@ -120,31 +119,15 @@ You can easily customize the game by:
 - **Changing sprites** - Replace image files in the `images/` folder
 - **Adding new enemy types** - Extend the enemy creation functions
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-## 📝 License
-
-- This project is [MIT](LICENSE) licensed.
-- This project is licensed under the Hippocratic License 3.0 with the AI Training Addendum. You may not use this code, documentation, or any associated materials to train, fine-tune, evaluate, or improve artificial intelligence or machine learning models without explicit written permission from the author. See [LICENSE](https://firstdonoharm.dev/) for full terms.
 
 
 ## 👤 Author
 
-**Ania Kubów**
-- GitHub: [@kubowania](https://github.com/kubowania)
+**Durand Dyer-Branch**
+- GitHub: [@daebecodin](https://github.com/daebecodin)
 
-## 🙏 Acknowledgments
-
-- Inspired by The Legend of Zelda (Nintendo)
-- Sprites and assets are used for educational purposes
-
-## AI Training Exclusion
-This repository and its contents may not be used for training artificial intelligence or machine learning models.
 
 ---
 
-**Note:** This is a fan-made educational project and is not affiliated with or endorsed by Nintendo.
 
 

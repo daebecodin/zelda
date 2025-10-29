@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         invulnerable: false,
         lastRegenTime: 0,
         completedLevels: new Set(), // Track completed levels
-        allLevelsCompleted: false
+        allLevelsCompleted: false,
+        enemySpeedMultiplier: 1 // 0.5 = slow, 1 = normal, 1.5 = fast
     };
 
     const maps = [
@@ -584,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {number} deltaTime - Time elapsed since last frame in seconds
      */
     function moveSlicer(slicer, deltaTime) {
-        const speed = GAME_CONFIG.ENEMY_SPEEDS.SLICER * deltaTime;
+        const speed = GAME_CONFIG.ENEMY_SPEEDS.SLICER * deltaTime * gameState.enemySpeedMultiplier;
         const newX = slicer.x + (slicer.direction * speed);
         const y = Math.round(slicer.y);
 
@@ -604,7 +605,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {number} deltaTime - Time elapsed since last frame in seconds
      */
     function moveSkeletor(skeletor, deltaTime) {
-        const speed = GAME_CONFIG.ENEMY_SPEEDS.SKELETOR * deltaTime;
+        const speed = GAME_CONFIG.ENEMY_SPEEDS.SKELETOR * deltaTime * gameState.enemySpeedMultiplier;
         skeletor.timer -= deltaTime;
         
         if (skeletor.timer <= 0) {
@@ -834,10 +835,30 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('controls-info').textContent = infoText;
     }
 
+    /**
+     * Sets the enemy speed multiplier and updates UI accordingly
+     * @param {string} speed - Speed setting: 'slow', 'normal', or 'fast'
+     */
+    function setEnemySpeed(speed) {
+        const speedMap = {
+            slow: 0.5,
+            normal: 1,
+            fast: 1.5
+        };
+        
+        gameState.enemySpeedMultiplier = speedMap[speed];
+        
+        // Update button states
+        document.getElementById('slow-btn').classList.toggle('active', speed === 'slow');
+        document.getElementById('normal-btn').classList.toggle('active', speed === 'normal');
+        document.getElementById('fast-btn').classList.toggle('active', speed === 'fast');
+    }
+
     // Make functions global for HTML onclick
     window.openSettingsModal = openSettingsModal;
     window.closeSettingsModal = closeSettingsModal;
     window.setControls = setControls;
+    window.setEnemySpeed = setEnemySpeed;
     window.openLevelModal = openLevelModal;
     window.closeLevelModal = closeLevelModal;
 
