@@ -381,18 +381,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch(e.code) {
             case 'ArrowLeft':
+            case 'KeyA':
                 e.preventDefault();
                 movePlayer('left');
                 break;
             case 'ArrowRight':
+            case 'KeyD':
                 e.preventDefault();
                 movePlayer('right');
                 break;
             case 'ArrowUp':
+            case 'KeyW':
                 e.preventDefault();
                 movePlayer('up');
                 break;
             case 'ArrowDown':
+            case 'KeyS':
                 e.preventDefault();
                 movePlayer('down');
                 break;
