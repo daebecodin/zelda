@@ -8,7 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
         GRID_HEIGHT: 9,
         TILE_SIZE: 48,
         ENEMY_SPEEDS: { SLICER: 2, SKELETOR: 1.5 },
-        INITIAL_PLAYER_POSITION: 40
+        INITIAL_PLAYER_POSITION: 40,
+        HEALTH: {
+            MAX: 3,
+            INVULNERABILITY_TIME: 1000, // 1 second
+            REGEN_DELAY: 5000, // 5 seconds
+            DAMAGE_PER_LEVEL: 1 // base damage, increases with level
+        }
     };
 
     const WALL_CLASSES = [
@@ -42,10 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
         gameRunning: true,
         lastTime: 0,
         animationId: null,
-        controlScheme: 'arrows' // 'arrows' or 'wasd'
+        controlScheme: 'arrows', // 'arrows' or 'wasd'
+        health: 3,
+        maxHealth: 3,
+        lastDamageTime: 0,
+        invulnerable: false,
+        lastRegenTime: 0
     };
 
     const maps = [
+        // Level 1 - Tutorial (2 slicers)
         [
             'ycc)cc^ccw',
             'a        b',
@@ -57,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'a        b',
             'xdd)dd)ddz'
         ],
+        // Level 2 - Introduction to skeletors (1 skeletor)
         [
             'yccccccccw',
             'a        b',
@@ -67,6 +80,78 @@ document.addEventListener('DOMContentLoaded', () => {
             ')   }    )',
             'a        b',
             'xddddddddz',
+        ],
+        // Level 3 - Mixed enemies (2 slicers, 2 skeletors)
+        [
+            'ycc)cc^ccw',
+            'a *      b',
+            'a   }    b',
+            'a    (   b',
+            '%        b',
+            'a    (   b',
+            'a   }  * b',
+            'a        b',
+            'xdd)dd)ddz'
+        ],
+        // Level 4 - Narrow corridors (3 slicers, 1 skeletor) - FIXED
+        [
+            'yccccccccw',
+            'a*      }b',
+            'accc     b',
+            'a   c    b',
+            'a   c   *b',
+            'a        b',
+            'a *     $b',
+            'a        b',
+            'xddddddddz'
+        ],
+        // Level 5 - Enemy maze (2 slicers, 3 skeletors) - FIXED
+        [
+            'ycc^cccccw',
+            'a}  c  * b',
+            'a   c    b',
+            'a       cb',
+            'a}     } b',
+            'accc     b',
+            'a *    $ b',
+            'a        b',
+            'xddddddddz'
+        ],
+        // Level 6 - Crowded room (4 slicers, 2 skeletors)
+        [
+            'yccccccccw',
+            'a* }   *}b',
+            ')        )',
+            'a  (  (  b',
+            'a        b',
+            'a  (  (  b',
+            ')   *  * )',
+            'a        b',
+            'xddd^ddddz'
+        ],
+        // Level 7 - Complex layout (3 slicers, 4 skeletors) - FIXED
+        [
+            'ycc)cc^ccw',
+            'a}*    } b',
+            'acc     cb',
+            'a }    * b',
+            '%   ((   b',
+            'a }    } b',
+            'acc     cb',
+            'a *      b',
+            'xdd)dd)ddz'
+        ],
+        // Level 8 - Final challenge (5 slicers, 3 skeletors) - FIXED
+        [
+            'yccccccccw',
+            'a*} * }*}b',
+            'a        b',
+            'acc     cb',
+            'a *    * b',
+            'acc     cb',
+            'a        b',
+            'a   $    b',
+            'xddddddddz'
         ]
     ];
 
@@ -300,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         for (const enemy of gameState.enemies) {
             if (Math.round(enemy.x) === playerCoords.x && Math.round(enemy.y) === playerCoords.y) {
-                gameOver();
+                damagePlayer(performance.now());
                 return;
             }
         }
@@ -360,6 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.scoreDisplay.innerHTML = gameState.score;
         elements.levelDisplay.innerHTML = gameState.level + 1;
         elements.enemyDisplay.innerHTML = gameState.enemies.length;
+        updateHeartsDisplay();
     }
 
     function showEnemiesRemainingMessage() {
@@ -482,6 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameState.gameRunning && deltaTime < 0.1) {
             moveEnemies(deltaTime);
             checkPlayerEnemyCollision();
+            handleHealthRegen(currentTime);
         }
         
         gameState.animationId = requestAnimationFrame(gameLoop);
@@ -491,7 +578,75 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.score = 0;
         gameState.level = 0;
         gameState.playerPosition = GAME_CONFIG.INITIAL_PLAYER_POSITION;
+        gameState.health = GAME_CONFIG.HEALTH.MAX;
+        gameState.lastDamageTime = 0;
+        gameState.invulnerable = false;
+        gameState.lastRegenTime = 0;
         createBoard();
+    }
+
+    /**
+     * Creates and updates the hearts display in the UI
+     * Shows current health as filled/empty hearts
+     */
+    function updateHeartsDisplay() {
+        const heartsContainer = document.getElementById('hearts-display');
+        heartsContainer.innerHTML = '';
+        
+        for (let i = 0; i < GAME_CONFIG.HEALTH.MAX; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            
+            if (i >= gameState.health) {
+                heart.classList.add('empty');
+            }
+            
+            heartsContainer.appendChild(heart);
+        }
+    }
+
+    /**
+     * Damages the player and handles invulnerability frames
+     * @param {number} currentTime - Current timestamp for timing calculations
+     */
+    function damagePlayer(currentTime) {
+        if (gameState.invulnerable) return;
+        
+        const damage = GAME_CONFIG.HEALTH.DAMAGE_PER_LEVEL + Math.floor(gameState.level / 2);
+        gameState.health = Math.max(0, gameState.health - damage);
+        gameState.lastDamageTime = currentTime;
+        gameState.invulnerable = true;
+        gameState.lastRegenTime = currentTime; // Reset regen timer
+        
+        // Visual feedback
+        const player = document.getElementById('player');
+        player.style.opacity = '0.5';
+        
+        setTimeout(() => {
+            gameState.invulnerable = false;
+            player.style.opacity = '1';
+        }, GAME_CONFIG.HEALTH.INVULNERABILITY_TIME);
+        
+        updateHeartsDisplay();
+        
+        if (gameState.health <= 0) {
+            gameOver();
+        }
+    }
+
+    /**
+     * Handles health regeneration over time
+     * @param {number} currentTime - Current timestamp for timing calculations
+     */
+    function handleHealthRegen(currentTime) {
+        if (gameState.health < GAME_CONFIG.HEALTH.MAX && 
+            currentTime - gameState.lastDamageTime > GAME_CONFIG.HEALTH.REGEN_DELAY &&
+            currentTime - gameState.lastRegenTime > GAME_CONFIG.HEALTH.REGEN_DELAY) {
+            
+            gameState.health = Math.min(GAME_CONFIG.HEALTH.MAX, gameState.health + 1);
+            gameState.lastRegenTime = currentTime;
+            updateHeartsDisplay();
+        }
     }
 
     document.addEventListener('keydown', (e) => {

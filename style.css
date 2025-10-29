@@ -284,3 +284,31 @@ body {
 #settings-btn:hover {
     background-color: #5a3c27;
 }
+/* Health System Styles */
+.health-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+#hearts-display {
+    display: flex;
+    gap: 2px;
+}
+
+.heart {
+    width: 16px;
+    height: 16px;
+    background-color: #ff0000;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    display: inline-block;
+}
+
+.heart.empty {
+    background-color: #444;
+}
+
+.heart.damaged {
+    background-color: #ff6666;
+}
