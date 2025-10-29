@@ -72,23 +72,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Utility Functions
     const utils = {
+        /**
+         * Checks if a grid position is within valid bounds
+         * @param {number} position - Grid position to validate (0-89 for 10x9 grid)
+         * @returns {boolean} True if position is within grid boundaries
+         */
         isValidPosition(position) {
             return position >= 0 && position < gameState.squares.length;
         },
+
+        /**
+         * Converts x,y coordinates to single grid position index
+         * @param {number} x - X coordinate (0-9)
+         * @param {number} y - Y coordinate (0-8)
+         * @returns {number} Grid position index (y * width + x)
+         */
         getPositionFromCoords(x, y) {
             return y * GAME_CONFIG.GRID_WIDTH + x;
         },
+
+        /**
+         * Converts single grid position index to x,y coordinates
+         * @param {number} position - Grid position index (0-89)
+         * @returns {{x: number, y: number}} Object containing x and y coordinates
+         */
         getCoordsFromPosition(position) {
             return {
                 x: position % GAME_CONFIG.GRID_WIDTH,
                 y: Math.floor(position / GAME_CONFIG.GRID_WIDTH)
             };
         },
+
+        /**
+         * Checks if a DOM square element has any wall-blocking CSS classes
+         * @param {HTMLElement} square - DOM element to check for wall classes
+         * @returns {boolean} True if square contains any wall or obstacle class
+         */
         hasWallClass(square) {
             return WALL_CLASSES.some(className => square.classList.contains(className));
         }
     };
 
+    /**
+     * Initializes and creates the complete game board for the current level
+     * Resets game state, clears existing elements, builds grid from map data
+     */
     function createBoard() {
         gameState.gameRunning = true;
         elements.grid.innerHTML = '';
@@ -109,6 +137,13 @@ document.addEventListener('DOMContentLoaded', () => {
         updateDisplays();
     }
 
+    /**
+     * Adds appropriate CSS classes or creates game entities based on map character
+     * @param {HTMLElement} square - DOM element to modify with classes
+     * @param {string} char - Single character from map array representing tile type
+     * @param {number} x - X coordinate for enemy placement
+     * @param {number} y - Y coordinate for enemy placement
+     */
     function addMapElement(square, char, x, y) {
         if (MAP_ELEMENTS[char]) {
             square.classList.add(MAP_ELEMENTS[char]);
@@ -119,6 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Creates the player (Link) DOM element and positions it on the grid
+     * Sets initial sprite direction and adds to game grid
+     */
     function createPlayer() {
         const playerElement = document.createElement('div');
         playerElement.classList.add('link-going-right');
@@ -127,12 +166,22 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.grid.appendChild(playerElement);
     }
 
+    /**
+     * Updates the visual position of the player element on screen
+     * @param {HTMLElement} playerElement - The player DOM element to position
+     */
     function updatePlayerPosition(playerElement) {
         const coords = utils.getCoordsFromPosition(gameState.playerPosition);
         playerElement.style.left = `${coords.x * GAME_CONFIG.TILE_SIZE}px`;
         playerElement.style.top = `${coords.y * GAME_CONFIG.TILE_SIZE}px`;
     }
 
+    /**
+     * Creates a slicer enemy at specified grid coordinates
+     * Slicers move horizontally and bounce off walls
+     * @param {number} x - X coordinate (0-9) for enemy placement
+     * @param {number} y - Y coordinate (0-8) for enemy placement
+     */
     function createSlicer(x, y) {
         const slicerElement = document.createElement('div');
         slicerElement.classList.add('slicer');
@@ -144,6 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.grid.appendChild(slicerElement);
     }
 
+    /**
+     * Creates a skeletor enemy at specified grid coordinates
+     * Skeletors move vertically with random direction changes
+     * @param {number} x - X coordinate (0-9) for enemy placement
+     * @param {number} y - Y coordinate (0-8) for enemy placement
+     */
     function createSkeletor(x, y) {
         const skeletorElement = document.createElement('div');
         skeletorElement.classList.add('skeletor');
@@ -155,6 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.grid.appendChild(skeletorElement);
     }
 
+    /**
+     * Handles player movement in the specified direction
+     * Updates sprite direction and moves if path is clear
+     * @param {string} direction - Movement direction: 'left', 'right', 'up', or 'down'
+     */
     function movePlayer(direction) {
         const playerElement = document.getElementById('player');
         const newPosition = calculateNewPosition(direction);
@@ -166,6 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    /**
+     * Calculates the new grid position based on current position and direction
+     * Prevents movement outside grid boundaries
+     * @param {string} direction - Movement direction: 'left', 'right', 'up', or 'down'
+     * @returns {number} New grid position or current position if move is invalid
+     */
     function calculateNewPosition(direction) {
         const movements = {
             left: gameState.playerPosition % GAME_CONFIG.GRID_WIDTH !== 0 ? -1 : 0,
@@ -177,6 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return gameState.playerPosition + (movements[direction] || 0);
     }
 
+    /**
+     * Updates the player sprite's CSS class to match movement direction
+     * @param {HTMLElement} playerElement - The player DOM element
+     * @param {string} direction - New facing direction for sprite animation
+     */
     function updatePlayerDirection(playerElement, direction) {
         const directionClasses = {
             left: 'link-going-left', right: 'link-going-right', 
@@ -187,6 +258,11 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.playerDirection = direction;
     }
 
+    /**
+     * Processes player movement to a new valid position
+     * Handles door interactions, level transitions, and collision detection
+     * @param {number} newPosition - Target grid position for player movement
+     */
     function handlePlayerMovement(newPosition) {
         const square = gameState.squares[newPosition];
         
@@ -208,6 +284,12 @@ document.addEventListener('DOMContentLoaded', () => {
         checkPlayerEnemyCollision();
     }
 
+    /**
+     * Checks if the player can move to the specified grid position
+     * Validates position bounds and checks for wall/obstacle collisions
+     * @param {number} position - Target grid position to validate
+     * @returns {boolean} True if position is walkable, false if blocked
+     */
     function canMoveTo(position) {
         if (!utils.isValidPosition(position)) return false;
         return !utils.hasWallClass(gameState.squares[position]);
@@ -314,6 +396,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showTemporaryMessage(`Game Over! Final Score: ${gameState.score}`, 'white', 3000);
     }
 
+    /**
+     * Updates positions of all enemies based on their movement patterns
+     * Called each frame to animate enemy movement with delta time
+     * @param {number} deltaTime - Time elapsed since last frame in seconds
+     */
     function moveEnemies(deltaTime) {
         gameState.enemies.forEach(enemy => {
             if (enemy.type === 'slicer') {
@@ -324,6 +411,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /**
+     * Moves a slicer enemy horizontally with wall collision detection
+     * Slicers bounce off walls and grid boundaries
+     * @param {Object} slicer - Slicer enemy object with position and direction
+     * @param {number} deltaTime - Time elapsed since last frame in seconds
+     */
     function moveSlicer(slicer, deltaTime) {
         const speed = GAME_CONFIG.ENEMY_SPEEDS.SLICER * deltaTime;
         const newX = slicer.x + (slicer.direction * speed);
@@ -338,6 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
         slicer.element.style.left = `${slicer.x * GAME_CONFIG.TILE_SIZE}px`;
     }
 
+    /**
+     * Moves a skeletor enemy vertically with random direction changes
+     * Skeletors change direction randomly and bounce off walls
+     * @param {Object} skeletor - Skeletor enemy object with position, direction, and timer
+     * @param {number} deltaTime - Time elapsed since last frame in seconds
+     */
     function moveSkeletor(skeletor, deltaTime) {
         const speed = GAME_CONFIG.ENEMY_SPEEDS.SKELETOR * deltaTime;
         skeletor.timer -= deltaTime;
@@ -359,12 +458,23 @@ document.addEventListener('DOMContentLoaded', () => {
         skeletor.element.style.top = `${skeletor.y * GAME_CONFIG.TILE_SIZE}px`;
     }
 
+    /**
+     * Checks if specified coordinates contain a wall or obstacle
+     * @param {number} x - X coordinate to check (0-9)
+     * @param {number} y - Y coordinate to check (0-8)
+     * @returns {boolean} True if position contains wall or obstacle
+     */
     function isWall(x, y) {
         const position = utils.getPositionFromCoords(x, y);
         if (!utils.isValidPosition(position)) return true;
         return utils.hasWallClass(gameState.squares[position]);
     }
 
+    /**
+     * Main game loop function called by requestAnimationFrame
+     * Handles enemy movement and collision detection each frame
+     * @param {number} currentTime - Current timestamp from requestAnimationFrame
+     */
     function gameLoop(currentTime) {
         const deltaTime = (currentTime - gameState.lastTime) / 1000;
         gameState.lastTime = currentTime;
@@ -453,14 +563,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Modal Functions
+    /**
+     * Opens the settings modal by making it visible
+     * Allows player to change control scheme preferences
+     */
     function openSettingsModal() {
         document.getElementById('settings-modal').style.display = 'block';
     }
 
+    /**
+     * Closes the settings modal by hiding it
+     * Returns player to the game interface
+     */
     function closeSettingsModal() {
         document.getElementById('settings-modal').style.display = 'none';
     }
 
+    /**
+     * Sets the active control scheme and updates UI accordingly
+     * @param {string} scheme - Control scheme: 'arrows' or 'wasd'
+     */
     function setControls(scheme) {
         gameState.controlScheme = scheme;
         
