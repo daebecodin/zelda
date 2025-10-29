@@ -376,7 +376,20 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.animationId = requestAnimationFrame(gameLoop);
     }
 
+    function restartGame() {
+        gameState.score = 0;
+        gameState.level = 0;
+        gameState.playerPosition = GAME_CONFIG.INITIAL_PLAYER_POSITION;
+        createBoard();
+    }
+
     document.addEventListener('keydown', (e) => {
+        if (e.code === 'KeyR') {
+            e.preventDefault();
+            restartGame();
+            return;
+        }
+
         if (!gameState.gameRunning) return;
 
         switch(e.code) {
