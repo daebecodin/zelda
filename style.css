@@ -284,12 +284,47 @@ body {
 #settings-btn:hover {
     background-color: #5a3c27;
 }
-/* Health System Styles */
+/* Navigation Bar Styles */
+.game-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #2c1810;
+    border-bottom: 3px solid #8B4513;
+    margin-bottom: 20px;
+    font-family: monospace;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
+
+.game-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-item {
+    color: #FFD700;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .health-container {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin: 5px 0;
+    color: #FFD700;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 #hearts-display {
@@ -311,4 +346,94 @@ body {
 
 .heart.damaged {
     background-color: #ff6666;
+}
+
+#settings-btn, #level-select-btn {
+    padding: 8px 16px;
+    border: 2px solid #8B4513;
+    background-color: #4a2c17;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+#settings-btn:hover, #level-select-btn:hover {
+    background-color: #5a3c27;
+}
+
+#level-select-btn:disabled {
+    background-color: #2a1c10;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #444;
+}
+/* Controls Info Styling */
+.controls-info {
+    text-align: center;
+    margin: 20px auto;
+    padding: 12px;
+    background-color: rgba(44, 24, 16, 0.9);
+    border-radius: 8px;
+    border: 2px solid #8B4513;
+    max-width: 600px;
+}
+
+.controls-info p {
+    margin: 0;
+    color: #FFD700;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+/* Level Select Styles */
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.level-btn {
+    padding: 15px 10px;
+    border: 2px solid #8B4513;
+    background-color: #4a2c17;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.level-btn:hover:not(:disabled) {
+    background-color: #5a3c27;
+    transform: scale(1.05);
+}
+
+.level-btn:disabled {
+    background-color: #2a1c10;
+    color: #666;
+    cursor: not-allowed;
+    border-color: #444;
+}
+
+.level-btn.completed {
+    background-color: #2d5a2d;
+    border-color: #4a8f4a;
+}
+
+.level-btn.current {
+    background-color: #FFD700;
+    color: #2c1810;
+    border-color: #FFD700;
+}
+
+#level-unlock-msg {
+    text-align: center;
+    color: #ff6666;
+    font-style: italic;
+    margin: 10px 0;
 }

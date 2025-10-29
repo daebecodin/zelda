@@ -8,20 +8,32 @@
 </head>
 <body>
 
-    <div class="ui">
-        <p>Score: <span id="score">0</span></p>
-        <p>Level: <span id="level">1</span></p>
-        <p>Enemies: <span id="enemies">2</span></p>
-        <div class="health-container">
-            <span>Health: </span>
-            <div id="hearts-display"></div>
+    <!-- Navigation Bar -->
+    <nav class="game-nav">
+        <div class="nav-left">
+            <div class="game-stats">
+                <span class="stat-item">Score: <span id="score">0</span></span>
+                <span class="stat-item">Level: <span id="level">1</span></span>
+                <span class="stat-item">Enemies: <span id="enemies">2</span></span>
+            </div>
+            <div class="health-container">
+                <span>Health: </span>
+                <div id="hearts-display"></div>
+            </div>
         </div>
-        <button id="settings-btn" onclick="openSettingsModal()">Settings</button>
-    </div>
+        <div class="nav-right">
+            <button id="settings-btn" onclick="openSettingsModal()">Settings</button>
+            <button id="level-select-btn" onclick="openLevelModal()">Level Select</button>
+        </div>
+    </nav>
 
+    <!-- Game Grid -->
     <div id="grid"></div>
 
-    <p id="controls-info">Use arrow keys to move, SPACE to attack, R to restart</p>
+    <!-- Controls Info -->
+    <div class="controls-info">
+        <p id="controls-info">Use arrow keys to move, SPACE to attack, R to restart</p>
+    </div>
 
     <!-- Settings Modal -->
     <div id="settings-modal" class="modal">
@@ -35,6 +47,18 @@
                 </div>
             </div>
             <button class="close-btn" onclick="closeSettingsModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Level Select Modal -->
+    <div id="level-modal" class="modal">
+        <div class="modal-content">
+            <h3>Level Select</h3>
+            <div id="level-grid" class="level-grid">
+                <!-- Level buttons will be generated here -->
+            </div>
+            <p id="level-unlock-msg">Complete all levels to unlock level select!</p>
+            <button class="close-btn" onclick="closeLevelModal()">Close</button>
         </div>
     </div>
 

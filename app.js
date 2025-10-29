@@ -53,7 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         maxHealth: 3,
         lastDamageTime: 0,
         invulnerable: false,
-        lastRegenTime: 0
+        lastRegenTime: 0,
+        completedLevels: new Set(), // Track completed levels
+        allLevelsCompleted: false
     };
 
     const maps = [
@@ -473,8 +475,86 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function nextLevel() {
+        // Mark current level as completed
+        gameState.completedLevels.add(gameState.level);
+        
+        // Check if all levels completed
+        if (gameState.completedLevels.size === maps.length) {
+            gameState.allLevelsCompleted = true;
+        }
+        
         gameState.level = (gameState.level + 1) % maps.length;
         createBoard();
+        updateLevelSelectButton();
+    }
+
+    /**
+     * Updates the level select button state based on completion
+     */
+    function updateLevelSelectButton() {
+        const btn = document.getElementById('level-select-btn');
+        btn.disabled = !gameState.allLevelsCompleted;
+    }
+
+    /**
+     * Opens the level selection modal
+     */
+    function openLevelModal() {
+        if (!gameState.allLevelsCompleted) return;
+        
+        generateLevelGrid();
+        document.getElementById('level-modal').style.display = 'block';
+    }
+
+    /**
+     * Closes the level selection modal
+     */
+    function closeLevelModal() {
+        document.getElementById('level-modal').style.display = 'none';
+    }
+
+    /**
+     * Generates the level selection grid
+     */
+    function generateLevelGrid() {
+        const grid = document.getElementById('level-grid');
+        const msg = document.getElementById('level-unlock-msg');
+        
+        if (!gameState.allLevelsCompleted) {
+            grid.style.display = 'none';
+            msg.style.display = 'block';
+            return;
+        }
+        
+        grid.style.display = 'grid';
+        msg.style.display = 'none';
+        grid.innerHTML = '';
+        
+        for (let i = 0; i < maps.length; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'level-btn';
+            btn.textContent = `Level ${i + 1}`;
+            
+            if (gameState.completedLevels.has(i)) {
+                btn.classList.add('completed');
+            }
+            
+            if (i === gameState.level) {
+                btn.classList.add('current');
+            }
+            
+            btn.onclick = () => selectLevel(i);
+            grid.appendChild(btn);
+        }
+    }
+
+    /**
+     * Selects and loads a specific level
+     */
+    function selectLevel(levelIndex) {
+        gameState.level = levelIndex;
+        createBoard();
+        closeLevelModal();
     }
 
     function gameOver() {
@@ -582,7 +662,9 @@ document.addEventListener('DOMContentLoaded', () => {
         gameState.lastDamageTime = 0;
         gameState.invulnerable = false;
         gameState.lastRegenTime = 0;
+        // Don't reset completed levels - keep progress
         createBoard();
+        updateLevelSelectButton();
     }
 
     /**
@@ -756,8 +838,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.openSettingsModal = openSettingsModal;
     window.closeSettingsModal = closeSettingsModal;
     window.setControls = setControls;
+    window.openLevelModal = openLevelModal;
+    window.closeLevelModal = closeLevelModal;
 
     // Initialize Game
     createBoard();
+    updateLevelSelectButton();
     gameState.animationId = requestAnimationFrame(gameLoop);
 });
