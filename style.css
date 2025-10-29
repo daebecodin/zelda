@@ -190,3 +190,97 @@ body {
 
 
 
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #2c1810;
+    margin: 15% auto;
+    padding: 20px;
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    color: white;
+    font-family: monospace;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #FFD700;
+}
+
+.setting-group {
+    margin: 20px 0;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.control-options {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.control-btn {
+    padding: 8px 16px;
+    border: 2px solid #8B4513;
+    background-color: #4a2c17;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.control-btn:hover {
+    background-color: #5a3c27;
+}
+
+.control-btn.active {
+    background-color: #FFD700;
+    color: #2c1810;
+    border-color: #FFD700;
+}
+
+.close-btn {
+    padding: 10px 20px;
+    border: 2px solid #8B4513;
+    background-color: #8B4513;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: monospace;
+    margin-top: 15px;
+}
+
+.close-btn:hover {
+    background-color: #A0522D;
+}
+
+#settings-btn {
+    padding: 5px 10px;
+    border: 1px solid #8B4513;
+    background-color: #4a2c17;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+#settings-btn:hover {
+    background-color: #5a3c27;
+}

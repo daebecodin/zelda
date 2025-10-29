@@ -12,11 +12,27 @@
         <p>Score: <span id="score">0</span></p>
         <p>Level: <span id="level">1</span></p>
         <p>Enemies: <span id="enemies">2</span></p>
+        <button id="settings-btn" onclick="openSettingsModal()">Settings</button>
     </div>
 
     <div id="grid"></div>
 
-    <p>use arrow keys to move, SPACE to attack</p>
+    <p id="controls-info">Use arrow keys to move, SPACE to attack, R to restart</p>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h3>Game Settings</h3>
+            <div class="setting-group">
+                <label>Movement Controls:</label>
+                <div class="control-options">
+                    <button id="arrow-btn" class="control-btn active" onclick="setControls('arrows')">Arrow Keys</button>
+                    <button id="wasd-btn" class="control-btn" onclick="setControls('wasd')">WASD</button>
+                </div>
+            </div>
+            <button class="close-btn" onclick="closeSettingsModal()">Close</button>
+        </div>
+    </div>
 
 </body>
 </html>
