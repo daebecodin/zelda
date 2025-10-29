@@ -199,14 +199,14 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(73, 75, 75, 0.8);
 }
 
 .modal-content {
-    background-color: #2c1810;
+    background-color: #494b4b;
     margin: 15% auto;
     padding: 20px;
-    border: 2px solid #8B4513;
+    border: 2px solid #0e5135;
     border-radius: 8px;
     width: 300px;
     text-align: center;
@@ -216,7 +216,7 @@ body {
 
 .modal-content h3 {
     margin-top: 0;
-    color: #FFD700;
+    color: #d4ce46;
 }
 
 .setting-group {
@@ -237,8 +237,8 @@ body {
 
 .control-btn {
     padding: 8px 16px;
-    border: 2px solid #8B4513;
-    background-color: #4a2c17;
+    border: 2px solid #0e5135;
+    background-color: #0d9263;
     color: white;
     cursor: pointer;
     border-radius: 4px;
@@ -246,19 +246,19 @@ body {
 }
 
 .control-btn:hover {
-    background-color: #5a3c27;
+    background-color: #4aba91;
 }
 
 .control-btn.active {
-    background-color: #FFD700;
-    color: #2c1810;
-    border-color: #FFD700;
+    background-color: #d4ce46;
+    color: #494b4b;
+    border-color: #d4ce46;
 }
 
 .close-btn {
     padding: 10px 20px;
-    border: 2px solid #8B4513;
-    background-color: #8B4513;
+    border: 2px solid #0e5135;
+    background-color: #0e5135;
     color: white;
     cursor: pointer;
     border-radius: 4px;
@@ -267,7 +267,7 @@ body {
 }
 
 .close-btn:hover {
-    background-color: #A0522D;
+    background-color: #0d9263;
 }
 
 #settings-btn {
@@ -290,8 +290,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background-color: #2c1810;
-    border-bottom: 3px solid #8B4513;
+    background-color: #494b4b;
+    border-bottom: 3px solid #0e5135;
     margin-bottom: 20px;
     font-family: monospace;
 }
@@ -313,7 +313,7 @@ body {
 }
 
 .stat-item {
-    color: #FFD700;
+    color: #d4ce46;
     font-size: 16px;
     font-weight: bold;
 }
@@ -322,7 +322,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #FFD700;
+    color: #d4ce46;
     font-size: 16px;
     font-weight: bold;
 }
@@ -335,23 +335,23 @@ body {
 .heart {
     width: 16px;
     height: 16px;
-    background-color: #ff0000;
+    background-color: #0d9263;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     display: inline-block;
 }
 
 .heart.empty {
-    background-color: #444;
+    background-color: #0e5135;
 }
 
 .heart.damaged {
-    background-color: #ff6666;
+    background-color: #4aba91;
 }
 
 #settings-btn, #level-select-btn {
     padding: 8px 16px;
-    border: 2px solid #8B4513;
-    background-color: #4a2c17;
+    border: 2px solid #0e5135;
+    background-color: #0d9263;
     color: white;
     cursor: pointer;
     border-radius: 4px;
@@ -361,29 +361,29 @@ body {
 }
 
 #settings-btn:hover, #level-select-btn:hover {
-    background-color: #5a3c27;
+    background-color: #4aba91;
 }
 
 #level-select-btn:disabled {
-    background-color: #2a1c10;
-    color: #666;
+    background-color: #0e5135;
+    color: #494b4b;
     cursor: not-allowed;
-    border-color: #444;
+    border-color: #494b4b;
 }
 /* Controls Info Styling */
 .controls-info {
     text-align: center;
     margin: 20px auto;
     padding: 12px;
-    background-color: rgba(44, 24, 16, 0.9);
+    background-color: rgba(73, 75, 75, 0.9);
     border-radius: 8px;
-    border: 2px solid #8B4513;
+    border: 2px solid #0e5135;
     max-width: 600px;
 }
 
 .controls-info p {
     margin: 0;
-    color: #FFD700;
+    color: #d4ce46;
     font-family: monospace;
     font-size: 14px;
 }
@@ -398,8 +398,8 @@ body {
 
 .level-btn {
     padding: 15px 10px;
-    border: 2px solid #8B4513;
-    background-color: #4a2c17;
+    border: 2px solid #0e5135;
+    background-color: #0d9263;
     color: white;
     cursor: pointer;
     border-radius: 4px;
@@ -409,31 +409,31 @@ body {
 }
 
 .level-btn:hover:not(:disabled) {
-    background-color: #5a3c27;
+    background-color: #4aba91;
     transform: scale(1.05);
 }
 
 .level-btn:disabled {
-    background-color: #2a1c10;
-    color: #666;
+    background-color: #0e5135;
+    color: #494b4b;
     cursor: not-allowed;
-    border-color: #444;
+    border-color: #494b4b;
 }
 
 .level-btn.completed {
-    background-color: #2d5a2d;
-    border-color: #4a8f4a;
+    background-color: #0e5135;
+    border-color: #4aba91;
 }
 
 .level-btn.current {
-    background-color: #FFD700;
-    color: #2c1810;
-    border-color: #FFD700;
+    background-color: #d4ce46;
+    color: #494b4b;
+    border-color: #d4ce46;
 }
 
 #level-unlock-msg {
     text-align: center;
-    color: #ff6666;
+    color: #4aba91;
     font-style: italic;
     margin: 10px 0;
 }
