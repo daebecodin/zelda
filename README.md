@@ -1,133 +1,61 @@
-# 🗡️ Zelda JS
-A Legend of Zelda-inspired dungeon crawler game built with vanilla JavaScript, HTML, and CSS.
+# Zelda JS
 
-Live Game: [HERE!!!](https://bit.ly/sevalla-deploy)
+A Legend of Zelda-inspired dungeon crawler built with vanilla JavaScript.
 
+**[Live Demo](https://bit.ly/sevalla-deploy)**
 
-## 🎮 About
+## Overview
 
-This is a browser-based recreation of classic Zelda dungeon gameplay featuring Link as he navigates through rooms filled with enemies. Battle slicers and skeletors as you progress through multiple levels!
+Browser-based dungeon crawler featuring Link navigating rooms filled with enemies. Battle slicers and skeletors across multiple levels with classic Zelda gameplay mechanics.
 
-## ✨ Features
+## Features
 
-- **Classic dungeon exploration** with walls, doors, and decorative elements
-- **Two enemy types:**
-  - **Slicers** - horizontal moving enemies
-  - **Skeletors** - vertical moving enemies with random direction changes
-- **Combat system** with directional attacks
-- **Multi-level progression** - defeat all enemies to advance
-- **Score tracking** system
-- **Smooth animations** using requestAnimationFrame
-- **Collision detection** for walls, enemies, and attacks
-- **Retro pixel art** sprites and tileset
+- Grid-based dungeon exploration
+- Two enemy types with distinct movement patterns
+- Directional combat system
+- Multi-level progression
+- Score tracking
+- Collision detection
 
-## 🎯 How to Play
+## Controls
 
-### Controls
-- **Arrow Keys** - Move Link in four directions
-- **Spacebar** - Attack in the direction Link is facing
+- **Arrow Keys** - Move Link
+- **Spacebar** - Attack
 
-### Objective
-- Navigate through dungeon rooms
-- Defeat all enemies in each level
-- Use doors or stairs to progress to the next level
-- Avoid enemy contact or it's game over!
-
-### Game Mechanics
-- You must defeat all enemies before you can exit through doors or stairs
-- Attacking spawns a "kaboom" effect in the direction you're facing
-- Enemies move in patterns - slicers horizontally, skeletors vertically
-- Your score increases with each enemy defeated
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- A modern web browser (Chrome, Firefox, Safari, Edge)
-- No build tools or dependencies required!
+- Modern web browser
+- No build tools required
 
 ### Installation
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/kubowania/zelda-js.git
-```
-
-2. Navigate to the project directory:
-```bash
+git clone https://github.com/daebecodin/zelda-js.git
 cd zelda-js
-```
-
-3. Open `index.html` in your browser:
-```bash
 open index.html
 ```
 
-Or simply double-click the `index.html` file.
-
-Click here to deploy your project for free: [DEPLOY!](https://bit.ly/sevalla-deploy)
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 zelda-js/
 ├── index.html          # Main HTML file
-├── app.js              # Game logic and mechanics
-├── style.css           # Styling and animations
+├── app.js              # Game logic
+├── style.css           # Styling
 ├── images/             # Sprite assets
-│   ├── Link sprites (4 directions)
-│   ├── Wall and corner tiles
-│   ├── Enemy sprites
-│   ├── Environmental objects
-│   └── Background tileset
 └── README.md
 ```
 
-## 🛠️ Technical Details
+## Technical Implementation
 
-### Technologies Used
 - **Vanilla JavaScript** (ES6+)
-- **HTML5**
-- **CSS3** with animations
-- **DOM manipulation** for dynamic game elements
+- **HTML5/CSS3**
+- Grid-based movement system (10x9)
+- Character-based map encoding
+- RequestAnimationFrame animations
 
-### Key Features Implementation
-- Grid-based movement system (10x9 grid)
-- Character-based map encoding for level design
-- Delta-time based enemy movement for smooth animation
-- Collision detection using grid position checking
-- Event-driven player controls
+## Author
 
-### Map Encoding
-The game uses a character-based encoding system for level design:
-- `y,w,x,z` = Corner walls
-- `a,b` = Side walls
-- `c,d` = Top/bottom walls
-- `)` = Lanterns
-- `(` = Fire pots
-- `%` = Left door
-- `^` = Top door
-- `$` = Stairs
-- `*` = Slicer enemy
-- `}` = Skeletor enemy
-- ` ` (space) = Walkable area
-
-## 🎨 Customization
-
-You can easily customize the game by:
-- **Adding new levels** - Edit the `maps` array in `app.js`
-- **Adjusting difficulty** - Modify enemy speed values
-- **Changing sprites** - Replace image files in the `images/` folder
-- **Adding new enemy types** - Extend the enemy creation functions
-
-
-
-## 👤 Author
-
-**Durand Dyer-Branch**
-- GitHub: [@daebecodin](https://github.com/daebecodin)
-
-
----
-
-
-
+**Durand Dyer-Branch**  
+GitHub: [@daebecodin](https://github.com/daebecodin)
