@@ -808,7 +808,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function openSettingsModal() {
         document.getElementById('settings-modal').style.display = 'block';
     }
-
     /**
      * Closes the settings modal by hiding it
      * Returns player to the game interface
