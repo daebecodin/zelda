@@ -1,3 +1,9 @@
+/*
+Name: Durand Dyer-Branch
+Student ID: 922513459
+GitHub URL: https://github.com/daebecodin
+*/
+
 /**
  * Zelda JS Game - A Legend of Zelda-inspired dungeon crawler
  */

@@ -2,7 +2,7 @@
 
 A Legend of Zelda-inspired dungeon crawler built with vanilla JavaScript.
 
-**[Live Demo](https://bit.ly/sevalla-deploy)**
+**[Live Demo]()**
 
 ## Overview
 
