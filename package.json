@@ -1,0 +1,25 @@
+{
+  "name": "assignment-3-daebecodin",
+  "version": "1.0.0",
+  "description": "A Legend of Zelda-inspired dungeon crawler game built with vanilla JavaScript, HTML, and CSS.",
+  "main": "app-backup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSC317-F25/assignment-3-daebecodin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/CSC317-F25/assignment-3-daebecodin/issues"
+  },
+  "homepage": "https://github.com/CSC317-F25/assignment-3-daebecodin#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
